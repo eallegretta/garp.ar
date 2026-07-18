@@ -1,0 +1,12 @@
+node_modules/
+.expo/
+dist/
+.repo-git/
+
+android/.gradle/
+android/app/build/
+
+ios/build/
+ios/Pods/
+
+.DS_Store

@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "GarpAr",
+    "slug": "garpapp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "scheme": "garpapp",
+    "icon": "./assets/icon.png",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.eallegretta.garpapp",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.eallegretta.garpapp",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#111315"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/icon.png",
+      "name": "Reparto de Gastos",
+      "shortName": "Gastos",
+      "display": "standalone",
+      "themeColor": "#111315",
+      "backgroundColor": "#111315"
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Permitir que GarpAr use la camara para escanear codigos QR",
+          "barcodeScannerEnabled": true
+        }
+      ]
+    ]
+  }
+}
