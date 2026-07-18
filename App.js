@@ -1,3 +1,4 @@
+import "@expo/metro-runtime";
 import { useEffect, useMemo, useState } from "react";
 import { Alert, Pressable, SafeAreaView, ScrollView, Text, TextInput, View } from "react-native";
 import { useCameraPermissions } from "expo-camera";

@@ -2,6 +2,22 @@ import { useEffect, useState } from "react";
 import { Platform, Pressable, Text, View } from "react-native";
 import { styles } from "../styles/appStyles";
 
+function detectMobileBrowser() {
+  if (Platform.OS !== "web" || typeof navigator === "undefined") {
+    return false;
+  }
+
+  const userAgent = navigator.userAgent || "";
+  const touchPoints = navigator.maxTouchPoints || 0;
+  const coarsePointer = typeof window !== "undefined" && typeof window.matchMedia === "function"
+    ? window.matchMedia("(pointer: coarse)").matches
+    : false;
+
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(userAgent)
+    || (userAgent.includes("Mac") && touchPoints > 1)
+    || coarsePointer;
+}
+
 function detectIos() {
   if (Platform.OS !== "web" || typeof navigator === "undefined") {
     return false;
@@ -33,10 +49,15 @@ export function WebInstallBanner() {
       return undefined;
     }
 
+    const mobileBrowser = detectMobileBrowser();
     setIsIos(detectIos());
-    setIsVisible(!isStandalone());
+    setIsVisible(mobileBrowser && !isStandalone());
 
     function handleBeforeInstallPrompt(event) {
+      if (!mobileBrowser) {
+        return;
+      }
+
       event.preventDefault();
       setDeferredPrompt(event);
       setIsVisible(true);

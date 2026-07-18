@@ -19,13 +19,15 @@ function normalizeImportedAttendee(personId, attendee) {
 }
 
 export function buildSharePayload(people, session) {
-  return JSON.stringify({
+  const payload = {
     type: "garpapp-share",
     version: QR_VERSION,
     exportedAt: new Date().toISOString(),
     people,
     session,
-  });
+  };
+
+  return JSON.stringify(payload);
 }
 
 export function parseSharePayload(rawValue) {
