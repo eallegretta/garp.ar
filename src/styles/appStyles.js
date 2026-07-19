@@ -105,13 +105,15 @@ export const styles = StyleSheet.create({
   primaryButton: {
     backgroundColor: "#d97706",
     borderRadius: 14,
-    paddingHorizontal: 16,
+    minWidth: 48,
     alignItems: "center",
     justifyContent: "center",
   },
   primaryButtonText: {
     color: "#111315",
     fontWeight: "800",
+    fontSize: 22,
+    lineHeight: 22,
   },
   secondaryButton: {
     alignSelf: "flex-start",

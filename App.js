@@ -1,5 +1,5 @@
 import "@expo/metro-runtime";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Alert, Pressable, SafeAreaView, ScrollView, Text, TextInput, View } from "react-native";
 import { useCameraPermissions } from "expo-camera";
 import { StatusBar } from "expo-status-bar";
@@ -24,6 +24,7 @@ export default function App() {
   const [showScanner, setShowScanner] = useState(false);
   const [hasScanned, setHasScanned] = useState(false);
   const [cameraPermission, requestCameraPermission] = useCameraPermissions();
+  const addPersonInputRef = useRef(null);
 
   useEffect(() => {
     async function bootstrap() {
@@ -74,6 +75,7 @@ export default function App() {
   function addPerson() {
     const trimmedName = newPersonName.trim();
     if (!trimmedName) {
+      addPersonInputRef.current?.focus();
       return;
     }
 
@@ -83,6 +85,7 @@ export default function App() {
 
     if (duplicate) {
       Alert.alert("Nombre repetido", "Esa persona ya existe en el grupo.");
+      addPersonInputRef.current?.focus();
       return;
     }
 
@@ -94,6 +97,9 @@ export default function App() {
       },
     ]);
     setNewPersonName("");
+    requestAnimationFrame(() => {
+      addPersonInputRef.current?.focus();
+    });
   }
 
   function removePerson(personId) {
@@ -200,15 +206,18 @@ export default function App() {
           <Text style={styles.sectionTitle}>Grupo</Text>
           <View style={styles.addRow}>
             <TextInput
+              ref={addPersonInputRef}
               value={newPersonName}
               onChangeText={setNewPersonName}
               placeholder="Agregar persona"
               placeholderTextColor="#6b7280"
               style={styles.input}
               onSubmitEditing={addPerson}
+              blurOnSubmit={false}
+              returnKeyType="done"
             />
             <Pressable style={styles.primaryButton} onPress={addPerson}>
-              <Text style={styles.primaryButtonText}>Agregar</Text>
+              <Text style={styles.primaryButtonText}>+</Text>
             </Pressable>
           </View>
 

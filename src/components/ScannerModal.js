@@ -24,6 +24,7 @@ export function ScannerModal({
         <View style={styles.scannerFrame}>
           <CameraView
             style={styles.camera}
+            facing="back"
             barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
             onBarcodeScanned={hasScanned ? undefined : onScan}
           />
